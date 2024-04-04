@@ -1,0 +1,38 @@
+#include <iostream>
+#include <fstream>
+#include <cmath> // for pow()
+using namespace std;
+int main() { //n은 20으로 고정
+float p, * a, * b;
+int k, N = 100000, count;
+p = 1. / 6.;
+a = new float[20 + 1];
+b = new float[20 + 1];
+for (k = 1; k <= 20; k++) {
+b[k] = 0;
+}
+//by using hint
+for (int nn = 0; nn < N; nn++) {
+count = 0;
+for (int j = 1; j <= 20; j++) {
+count++;
+if ((rand() / (float)RAND_MAX) < p) {
+b[count]++;
+break;
+}
+}
+}
+
+for (int k = 0; k <= 20; k++) {
+b[k] /= N;
+}
+ofstream xxx("geo.txt");
+for (k = 1; k <= 20; k++) {
+a[k] = pow((1 - p), k - 1) * p;
+xxx << k << " " << a[k] << " " << b[k] << endl;
+}
+xxx.close();
+
+delete[] a;
+delete[] b;
+}
